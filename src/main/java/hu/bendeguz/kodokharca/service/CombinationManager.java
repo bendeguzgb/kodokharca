@@ -1,4 +1,4 @@
-package main;
+package hu.bendeguz.kodokharca.service;
 
 import java.util.*;
 
