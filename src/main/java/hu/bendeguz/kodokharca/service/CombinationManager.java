@@ -1,8 +1,17 @@
 package hu.bendeguz.kodokharca.service;
 
-import java.util.*;
+import hu.bendeguz.kodokharca.model.Color;
+import hu.bendeguz.kodokharca.model.GameNumber;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
+@Slf4j
 public class CombinationManager {
 
     private int[] currentCombination = new int[0];
@@ -28,6 +37,20 @@ public class CombinationManager {
     public CombinationManager(int totalElementCount, int elementsInArray, int[] currentCombination) {
         this(totalElementCount, elementsInArray);
         this.currentCombination = currentCombination;
+    }
+
+    public List<List<GameNumber>> generateAllCombinations() {
+        List<List<GameNumber>> combinations = new ArrayList<>();
+
+        for (int[] array = nextCombination(); array.length > 0; array = nextCombination()) {
+            System.out.println(combinations.size());
+            combinations.add(Arrays.stream(array)
+                    .boxed()
+                    .map(this::mapIntegerToGameNumber)
+                    .collect(Collectors.toList()));
+        }
+
+        return combinations;
     }
 
     public int[] nextCombination() {
@@ -99,6 +122,14 @@ public class CombinationManager {
             value[i] = false;
             currentCombination[i] = i;
         }
+    }
+
+    private GameNumber mapIntegerToGameNumber(Integer value) {
+        if (value / 2 == 5) {
+            return new GameNumber(value / 2, Color.GREEN);
+        }
+
+        return new GameNumber(value / 2, ((value % 2 == 0) ? Color.WHITE : Color.BLACK));
     }
 
     public int[] getCurrentCombination() {
