@@ -14,36 +14,27 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CombinationManager {
 
-    private int[] currentCombination = new int[0];
-    private Boolean[] value;
-    private int totalElementCount;
-    private int elementsInArray;
+    private static int[] currentCombination = new int[0];
+    private static Boolean[] value;
+    private static int elementsInArray;
 
 
-    public CombinationManager(int totalElementCount, int elementsInArray) {
+    public static List<List<GameNumber>> generateAllCombinations(int totalElementCount, int elementsInArray) {
         validateAndInitialize(totalElementCount, elementsInArray);
-    }
-
-    public CombinationManager(int totalElementCount, int elementsInArray, int[] currentCombination) {
-        this(totalElementCount, elementsInArray);
-        this.currentCombination = currentCombination;
-    }
-
-    public List<List<GameNumber>> generateAllCombinations() {
         List<List<GameNumber>> combinations = new ArrayList<>();
 
         for (int[] array = nextCombination(); array.length > 0; array = nextCombination()) {
             System.out.println(combinations.size());
             combinations.add(Arrays.stream(array)
                     .boxed()
-                    .map(this::mapIntegerToGameNumber)
+                    .map(CombinationManager::mapIntegerToGameNumber)
                     .collect(Collectors.toList()));
         }
 
         return combinations;
     }
 
-    public int[] nextCombination() {
+    private static int[] nextCombination() {
         if (currentCombination.length == 0) {
             initFirstCombination();
             return currentCombination.clone();
@@ -94,7 +85,7 @@ public class CombinationManager {
         return current.clone();
     }
 
-    private int incrementNumber(int x) {
+    private static int incrementNumber(int x) {
         for (int i = x + 1; i < value.length; i++) {
             if(value[i]) {
                 value[i] = false;
@@ -106,7 +97,7 @@ public class CombinationManager {
         return -1;
     }
 
-    private void initFirstCombination() {
+    private static void initFirstCombination() {
         currentCombination = new int[elementsInArray];
         for (int i = 0; i < currentCombination.length; i++) {
             value[i] = false;
@@ -114,7 +105,7 @@ public class CombinationManager {
         }
     }
 
-    private void validateAndInitialize(int totalElementCountP, int elementsInArrayP) {
+    private static void validateAndInitialize(int totalElementCountP, int elementsInArrayP) {
         if (totalElementCountP < 0 || elementsInArrayP < 0) {
             throw new IllegalArgumentException("The number of elements or combinations can not be less than 0!");
         }
@@ -133,24 +124,11 @@ public class CombinationManager {
         currentCombination = new int[0];
     }
 
-    private GameNumber mapIntegerToGameNumber(Integer value) {
+    private static GameNumber mapIntegerToGameNumber(Integer value) {
         if (value / 2 == 5) {
             return new GameNumber(value / 2, Color.GREEN);
         }
 
         return new GameNumber(value / 2, ((value % 2 == 0) ? Color.WHITE : Color.BLACK));
     }
-
-    public int[] getCurrentCombination() {
-        return currentCombination.clone();
-    }
-
-    public int getTotalElementCount() {
-        return totalElementCount;
-    }
-
-    public int getElementsInArray() {
-        return elementsInArray;
-    }
-
 }
