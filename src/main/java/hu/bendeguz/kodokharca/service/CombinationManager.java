@@ -15,23 +15,13 @@ import java.util.stream.Collectors;
 public class CombinationManager {
 
     private int[] currentCombination = new int[0];
-    private final boolean[] value;
-    private final int totalElementCount;
-    private final int elementsInArray;
+    private Boolean[] value;
+    private int totalElementCount;
+    private int elementsInArray;
 
 
     public CombinationManager(int totalElementCount, int elementsInArray) {
-        if (totalElementCount < 0 || elementsInArray < 0) {
-            throw new IllegalArgumentException("The number of elements or combinations can not be less than 0!");
-        }
-        if (totalElementCount < elementsInArray) {
-            throw new IllegalArgumentException("The total number of elements can not be smaller than the number of combinations!");
-        }
-
-        this.totalElementCount = totalElementCount;
-        this.elementsInArray = elementsInArray;
-        value = new boolean[totalElementCount];
-        Arrays.fill(value, true);
+        validateAndInitialize(totalElementCount, elementsInArray);
     }
 
     public CombinationManager(int totalElementCount, int elementsInArray, int[] currentCombination) {
@@ -122,6 +112,25 @@ public class CombinationManager {
             value[i] = false;
             currentCombination[i] = i;
         }
+    }
+
+    private void validateAndInitialize(int totalElementCountP, int elementsInArrayP) {
+        if (totalElementCountP < 0 || elementsInArrayP < 0) {
+            throw new IllegalArgumentException("The number of elements or combinations can not be less than 0!");
+        }
+
+        if (totalElementCountP < elementsInArrayP) {
+            throw new IllegalArgumentException("The total number of elements can not be smaller than the number of combinations!");
+        }
+
+        if (elementsInArrayP < 3) {
+            log.warn("If there are less than 3 numbers in the array then some asking some of the questions will result in an Exception!");
+        }
+
+        elementsInArray = elementsInArrayP;
+        value = new Boolean[totalElementCountP];
+        Arrays.fill(value, true);
+        currentCombination = new int[0];
     }
 
     private GameNumber mapIntegerToGameNumber(Integer value) {
