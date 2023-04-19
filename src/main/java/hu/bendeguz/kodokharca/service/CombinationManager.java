@@ -2,6 +2,7 @@ package hu.bendeguz.kodokharca.service;
 
 import hu.bendeguz.kodokharca.model.Color;
 import hu.bendeguz.kodokharca.model.GameNumber;
+import java.util.Collections;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -18,6 +19,13 @@ public class CombinationManager {
     private static Boolean[] value;
     private static int elementsInArray;
 
+    public static List<List<GameNumber>> generateAllCombinations() {
+        return generateAllCombinations(20, 5);
+    }
+
+    public static List<List<GameNumber>> generateAllCombinations(int elementsInArray) {
+        return generateAllCombinations(20, elementsInArray);
+    }
 
     public static List<List<GameNumber>> generateAllCombinations(int totalElementCount, int elementsInArray) {
         validateAndInitialize(totalElementCount, elementsInArray);
@@ -31,7 +39,7 @@ public class CombinationManager {
                     .collect(Collectors.toList()));
         }
 
-        return combinations;
+        return Collections.unmodifiableList(combinations);
     }
 
     private static int[] nextCombination() {
