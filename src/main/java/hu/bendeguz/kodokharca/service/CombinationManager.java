@@ -32,7 +32,6 @@ public class CombinationManager {
         List<List<GameNumber>> combinations = new ArrayList<>();
 
         for (int[] array = nextCombination(); array.length > 0; array = nextCombination()) {
-            System.out.println(combinations.size());
             combinations.add(Arrays.stream(array)
                     .boxed()
                     .map(CombinationManager::mapIntegerToGameNumber)
