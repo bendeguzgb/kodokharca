@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -20,10 +21,10 @@ public class HomeController {
 
 
     @GetMapping(value = {"/", "/home"})
-    public String showHome(Model model) {
-        model.addAttribute("combinations", combinations5Numbers);
-        model.addAttribute("elementsInArray", ELEMENTS_IN_ARRAY_5_NUMBERS);
-        model.addAttribute("headerIterable", new boolean[ELEMENTS_IN_ARRAY_5_NUMBERS]);
+    public String showHome(@RequestParam(required = false, defaultValue = "5") Integer elementsInArray, Model model) {
+        model.addAttribute("combinations", CombinationGenerator.generateAllCombinations(elementsInArray));
+        model.addAttribute("elementsInArray", elementsInArray);
+        model.addAttribute("headerIterable", new boolean[elementsInArray]);
 
         return HOME_SCREEN;
     }
