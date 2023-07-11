@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 
 @Slf4j
-public class CombinationManager {
+public class CombinationGenerator {
 
     public static List<List<GameNumber>> generateAllCombinations() {
         return generateAllCombinations(20, 5);
@@ -70,7 +70,7 @@ public class CombinationManager {
 
     private static List<GameNumber> toGameNumbers(int[] numbers) {
         return Arrays.stream(numbers).boxed()
-            .map(CombinationManager::mapIntegerToGameNumber)
+            .map(CombinationGenerator::mapIntegerToGameNumber)
             .collect(Collectors.toUnmodifiableList());
     }
 

@@ -18,7 +18,7 @@ public class CombinationFilter5NumberTest {
     private static final int ALL_COMBINATIONS_COUNT = 15504; //  20! / (5! * 15!)
     private static final int TOTAL_ELEMENT_COUNT = 20;
     private static final int ELEMENTS_IN_ARRAY = 5;
-    private static final List<List<GameNumber>> combinations = CombinationManager.generateAllCombinations(TOTAL_ELEMENT_COUNT, ELEMENTS_IN_ARRAY);
+    private static final List<List<GameNumber>> combinations = CombinationGenerator.generateAllCombinations(TOTAL_ELEMENT_COUNT, ELEMENTS_IN_ARRAY);
     private static final List<List<GameNumber>> customCombinations = new ArrayList<>();
 
     @BeforeAll
