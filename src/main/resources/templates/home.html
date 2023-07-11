@@ -3,36 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Kódok harca</title>
-    <link rel="stylesheet" href="style.css">
 
+<!-- For live editing   -->
+    <link rel="icon" type="image/png" href="../static/image/favicon.png" />
+
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/combination.css">
+
+<!-- For when running the application   -->
+    <link rel="icon" type="image/png" href="image/favicon.png" />
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/combination.css">
 </head>
 
 <body>
-    <h1>KÓDOK HARCA</h1>
+    <h1 id="title">KÓDOK HARCA</h1>
     <br>
 
-    <div class="container">
-        <div class="combinations">
-            <h3 th:text="${values.size()}">Combinations:</h3>
-
+    <div id="container">
+        <div id="combinationsContainer">
+            <h3 th:text="'Kombinációk: ' + ${combinations.size()}">aaa</h3>
             <table>
                 <tr>
                     <th class="indexHeader">index</th>
-                    <th class="numberTH">1</th>
-                    <th class="numberTH">2</th>
-                    <th class="numberTH">3</th>
-                    <th class="numberTH">4</th>
-                    <th class="numberTH">5</th>
+                    <th:block th:each="header, rowStat : ${headerIterable}">
+                        <th class="combinationNumberTH" th:text="${rowStat.index} + 1">aaa</th>
+                    </th:block>
                     <th class="numberTHs">Numbers</th>
                 </tr>
-                <tr th:each="cm, rowStat : ${values}">
-                    <td th:text="${rowStat.index} + 1">index</td>
-                    <td th:class="${cm.get(0).color}" th:text="${cm.get(0).value}">2</td>
-                    <td th:class="${cm.get(1).color}" th:text="${cm.get(1).value}">3</td>
-                    <td th:class="${cm.get(2).color}" th:text="${cm.get(2).value}">4</td>
-                    <td th:class="${cm.get(3).color}" th:text="${cm.get(3).value}">4</td>
-                    <td th:class="${cm.get(4).color}" th:text="${cm.get(4).value}">5</td>
-                    <td th:text="${cm.get(0).value + '' + cm.get(1).value + '' + cm.get(2).value + '' + cm.get(3).value + '' + cm.get(4).value}">00000</td>
+                <tr th:each="combination, rowStat : ${combinations}">
+                    <td th:text="${rowStat.index} + 1">aaa</td>
+                    <th:block th:each="number : ${combination}">
+                        <td th:class="${number.color}" th:text="${number.value}">aaa</td>
+                    </th:block>
+                    <td>
+                        <th:block th:each="number : ${combination}" th:text="${number.value}">aaa</th:block>
+                    </td>
                 </tr>
             </table>
         </div>

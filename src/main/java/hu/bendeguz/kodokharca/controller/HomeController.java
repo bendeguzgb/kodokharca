@@ -21,7 +21,9 @@ public class HomeController {
 
     @GetMapping(value = {"/", "/home"})
     public String showHome(Model model) {
-        model.addAttribute("values", combinations5Numbers);
+        model.addAttribute("combinations", combinations5Numbers);
+        model.addAttribute("elementsInArray", ELEMENTS_IN_ARRAY_5_NUMBERS);
+        model.addAttribute("headerIterable", new boolean[ELEMENTS_IN_ARRAY_5_NUMBERS]);
 
         return HOME_SCREEN;
     }

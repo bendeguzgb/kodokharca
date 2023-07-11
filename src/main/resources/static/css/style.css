@@ -1,0 +1,11 @@
+body {
+    padding-left: 30px;
+}
+
+#container {
+    display: flex;
+}
+
+#title {
+    color: #2fb334;
+}

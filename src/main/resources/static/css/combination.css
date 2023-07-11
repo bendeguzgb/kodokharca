@@ -1,0 +1,36 @@
+#combinationsContainer {
+    width: 300px;
+    padding-right: 20px;
+}
+
+#combinationsContainer table, #combinationsContainer th, #combinationsContainer td {
+  border: 1px solid black;
+  text-align:center;
+}
+
+.indexHeader {
+    width: 45px
+}
+
+.combinationNumberTH {
+    width: 15px
+}
+
+.numberTHs {
+    width: 70px
+}
+
+.WHITE {
+    background-color: white;
+    color: black;
+}
+
+.BLACK {
+    background-color: black;
+    color: white;
+}
+
+.GREEN {
+    background-color: green;
+    color: white;
+}
