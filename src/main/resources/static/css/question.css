@@ -1,0 +1,38 @@
+.questions {
+    display: flex;
+}
+
+.questions .first {
+    width: 350px;
+}
+
+.questions .second {
+    padding-left: 20px;
+    width: 350px;
+}
+
+.questions form {
+    margin-bottom: 10px;
+    padding: 10px 0px 10px 5px;
+    border: 1px solid black;
+}
+.questions br {
+    display: block;
+    padding-bottom: 300px;
+}
+
+.questions input[type=number], .questions input[type=text] {
+    width: 100px;
+    margin: 10px 0px 0px 0px;
+    padding: 5px 0px 5px 0px;
+}
+
+.questions input[type=submit] {
+    float: right;
+    margin: 0px 10px 0px 0px;
+    padding: 5px 5px 5px 5px;
+}
+
+#even, #white {
+    margin-top: 10px;
+}

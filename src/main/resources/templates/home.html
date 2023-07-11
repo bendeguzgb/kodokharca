@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="../static/css/style.css">
     <link rel="stylesheet" href="../static/css/combination.css">
+    <link rel="stylesheet" href="../static/css/question.css">
 
     <script type="text/javascript" src="../static/script/script.js"></script>
 
@@ -18,6 +19,7 @@
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/combination.css">
+    <link rel="stylesheet" href="css/question.css">
 
     <script type="text/javascript" src="script/script.js"></script>
 </head>
@@ -64,6 +66,132 @@
             </table>
         </div>
 
+        <div id="questionColumn">
+            <h3>Kérdések:</h3>
+            <div class="questions">
+
+                <div class="first">
+                    <form class="question" id="playerNumbers">
+                        <label>Saját számok</label><br>
+                        <input type="text" placeholder="Számok" pattern="\d-\d-\d-\d-\d" required
+                               title="Pl. 1-1-5-7-8"><br>
+                        <input type="text" placeholder="Színek" pattern="[hkz]-[hkz]-[hkz]-[hkz]-[hkz]" required
+                               title="Fehér-h / fekete-k / zöld-z, pl: h-k-z-k-k">
+                        <input type="submit" value="Szűrés">
+                    </form>
+
+                    <form class="question" id="numberLocation">
+                        <label>Hol vannak a # számjegyek?</label><br>
+                        <input type="number" placeholder="Szám" min="0" max="9" required><br>
+                        <input type="text" placeholder="Helyek" pattern="-|\d|\d-\d" required
+                               title="Példa a lehetséges értékekre aszerint, hogy mennyi ilyen szám van: '-' / '5' / '3-9'">
+                        <input type="submit" value="Szűrés">
+                    </form>
+
+                    <form class="question" id="sum">
+                        <label>Mennyi a számjegyek összege?</label><br>
+                        <input type="number" placeholder="Összeg" min="0" max="100" required>
+                        <input type="submit" value="Szűrés">
+                    </form>
+
+                    <form class="question" id="highestLowest">
+                        <label>Mennyi a legnagyobb és a legkisebb számjegyek különbsége?</label><br>
+                        <input type="number" placeholder="Különbség" min="2" max="9" required>
+                        <input type="submit" value="Szűrés">
+                    </form>
+
+                    <form class="question" id="leftSum">
+                        <label>Mennyi balról nézve az első három számjegy összege?</label><br>
+                        <input type="number" placeholder="Összeg" min="0" max="100" required>
+                        <input type="submit" value="Szűrés">
+                    </form>
+
+                    <form class="question" id="rightSum">
+                        <label>Mennyi jobbról nézve az első három számjegy összege?</label><br>
+                        <input type="number" placeholder="Összeg" min="0" max="100" required>
+                        <input type="submit" value="Szűrés">
+                    </form>
+
+                    <form class="question" id="middleSum">
+                        <label>Mennyi a középső számjegyek összege?</label><br>
+                        <input type="number" placeholder="Összeg" min="0" max="100" required>
+                        <input type="submit" value="Szűrés">
+                    </form>
+                </div>
+
+                <div class="second">
+                    <form class="question" id="evenOdd">
+                        <label>Hány darab páros/páratlan számjegy van?</label><br>
+                        <input type="number" placeholder="Darab" min="0" max="5" required><br>
+
+                        <input type="submit" value="Szűrés">
+
+                        <input type="radio" id="even" name="evenOrOdd" required>
+                        <label for="even">Páros</label><br>
+
+                        <input type="radio" id="odd" name="evenOrOdd" required>
+                        <label for="odd">Páratlan</label>
+                    </form>
+
+                    <form class="question" id="blackWhiteCount">
+                        <label>Hány darab fehér/fekete számjegy van?</label><br>
+                        <input type="number" placeholder="Darab" min="0" max="9" required><br>
+
+                        <input type="submit" value="Szűrés">
+
+                        <input type="radio" id="whiteCount" name="blackWhite" required>
+                        <label for="whiteCount">Fehér</label><br>
+
+                        <input type="radio" id="blackCount" name="blackWhite" required>
+                        <label for="blackCount">Fekete</label>
+                    </form>
+                    <form class="question" id="blackWhiteSum">
+                        <label>Mennyi a fehér/fekete számjegyek összege?</label><br>
+                        <input type="number" placeholder="Összeg" min="0" max="100" required><br>
+
+                        <input type="submit" value="Szűrés">
+
+                        <input type="radio" id="whiteSum" name="blackWhite" required>
+                        <label for="whiteSum">Fehér</label><br>
+
+                        <input type="radio" id="blackSum" name="blackWhite" required>
+                        <label for="blackSum">Fekete</label>
+                    </form>
+
+                    <form class="question" id="isCBigger">
+                        <label>A C számjegy értéke nagyobb, mint 4?</label><br>
+                        <input type="submit" value="Szűrés">
+
+                        <input type="radio" id="cBiggerYes" name="cBigger" required>
+                        <label for="cBiggerYes">Igen</label><br>
+
+                        <input type="radio" id="cBiggerNo" name="cBigger" required>
+                        <label for="cBiggerNo">Nem</label>
+                    </form>
+
+                    <form class="question" id="sameNumberPairs">
+                        <label>Mennyi lapkán van ugyanaz a számjegy?</label><br>
+                        <input type="number" placeholder="Darab" min="0" max="2" required
+                            title="Páronként 1, pl: 01234->0 / 00123->1 / 00112->2">
+                        <input type="submit" value="Szűrés">
+                    </form>
+
+                    <form class="question" id="sameColorNeighbour">
+                        <label>Mely szomszédos lapkákon van ugyanolyan színű számjegy?</label><br>
+                        <input type="text" placeholder="Helyek" pattern="-|\d|\d-\d|\d-\d-\d|\d-\d-\d-\d" required
+                               title="A számok azt jelölik, hogy az adott helyen lévő szám és a következő, azonos színű: fehér-h fekete-k -- fkfkf->- / ffkfk->1 / ffkff->1-4 / kkkff->1-2-4">
+                        <input type="submit" value="Szűrés">
+                    </form>
+
+                    <form class="question" id="consecutiveNeighbour">
+                        <label>Mely szomszédos lapkákon van egymást követő számérték?</label><br>
+                        <input type="text" placeholder="Helyek" pattern="-|\d|\d-\d|\d-\d-\d|\d-\d-\d-\d" required
+                               title="A számok azt jelölik, hogy az adott helyen lévő szám és a következő, egymást követő: 02468->- / 02489->4 / 01589->1-4 / 01256->1-2-4">
+                        <input type="submit" value="Szűrés">
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
 </body>
