@@ -9,10 +9,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Component;
 
 
 @Slf4j
+@Component
 public class CombinationGenerator {
+
+    private static List<List<GameNumber>> combinationsRange20Numbers4 = null;
+    private static List<List<GameNumber>> combinationsRange20Numbers5 = null;
+
+    static {
+        generateAllCombinations(4);
+        generateAllCombinations(5);
+    }
+
 
     public static List<List<GameNumber>> generateAllCombinations() {
         return generateAllCombinations(20, 5);
@@ -23,6 +34,16 @@ public class CombinationGenerator {
     }
 
     public static List<List<GameNumber>> generateAllCombinations(int range, int combinationSize) {
+        if (range == 20) {
+            if (combinationSize == 4 && combinationsRange20Numbers4 != null) {
+                return combinationsRange20Numbers4;
+            }
+
+            if (combinationSize == 5 && combinationsRange20Numbers5 != null) {
+                return combinationsRange20Numbers5;
+            }
+        }
+
         validateParameters(range, combinationSize);
 
         List<List<GameNumber>> combinations = new ArrayList<>();
@@ -51,7 +72,20 @@ public class CombinationGenerator {
             }
         }
 
-        return Collections.unmodifiableList(combinations);
+        combinations = Collections.unmodifiableList(combinations);
+
+        if (range == 20) {
+            if (combinationSize == 4 && combinationsRange20Numbers4 == null) {
+                combinationsRange20Numbers4 = combinations;
+                return combinationsRange20Numbers4;
+            }
+
+            if (combinationSize == 5 && combinationsRange20Numbers5 == null) {
+                combinationsRange20Numbers5 = combinations;
+                return combinationsRange20Numbers5;
+            }
+        }
+        return combinations;
     }
 
     private static void validateParameters(int totalElementCountP, int elementsInArrayP) {

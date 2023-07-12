@@ -16,12 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class HomeController {
-    private static final String HOME_SCREEN = "home";
-    private static final int ELEMENTS_IN_ARRAY_5_NUMBERS = 5;
-    private static final int ELEMENTS_IN_ARRAY_4_NUMBERS = 4;
-    private List<List<GameNumber>> combinations5Numbers = CombinationGenerator.generateAllCombinations(ELEMENTS_IN_ARRAY_5_NUMBERS);
-    private List<List<GameNumber>> combinations4Numbers = CombinationGenerator.generateAllCombinations(ELEMENTS_IN_ARRAY_4_NUMBERS);
 
+    private static final String HOME_SCREEN = "home";
 
     @GetMapping(value = {"/", "/home"})
     public String showHome(@RequestParam(required = false, defaultValue = "5") Integer elementsInArray,
@@ -30,23 +26,9 @@ public class HomeController {
         log.debug("filter = '{}'", filter);
         log.debug("elementsInArray = '{}' ", elementsInArray);
 
-        List<List<GameNumber>> combinations;
+        List<List<GameNumber>> combinations = CombinationGenerator.generateAllCombinations(elementsInArray);
+        combinations = CombinationFilterHandler.handleFiltering(combinations, filter);
 
-        switch (elementsInArray) {
-            case 5: {
-                combinations = combinations5Numbers;
-                break;
-            }
-            case 4: {
-                combinations = combinations4Numbers;
-                break;
-            }
-            default: {
-                combinations = CombinationGenerator.generateAllCombinations(elementsInArray);
-            }
-        }
-
-        combinations = (filter.size() > 0) ? CombinationFilterHandler.handleFiltering(combinations, filter) : combinations;
         log.debug("Returning {} combinations!", combinations.size());
 
         model.addAttribute("combinations", combinations);

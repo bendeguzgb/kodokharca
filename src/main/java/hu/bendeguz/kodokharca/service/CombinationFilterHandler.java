@@ -84,14 +84,14 @@ public class CombinationFilterHandler {
                 }
 
                 case "blackWhiteCount": {
-                    int count = Integer.parseInt(filterValues[0]);;
+                    int count = Integer.parseInt(filterValues[0]);
                     boolean isBlack = Boolean.parseBoolean(filterValues[1]);
                     combinations = CombinationFilter.countOfBlackOrWhiteNumbers(combinations, count, isBlack);
                     break;
                 }
 
                 case "blackWhiteSum": {
-                    int sum = Integer.parseInt(filterValues[0]);;
+                    int sum = Integer.parseInt(filterValues[0]);
                     boolean isBlack = Boolean.parseBoolean(filterValues[1]);
                     combinations = CombinationFilter.sumOfBlackOrWhiteNumbers(combinations, sum, isBlack);
                     break;
