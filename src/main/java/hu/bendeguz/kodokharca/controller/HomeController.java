@@ -1,6 +1,7 @@
 package hu.bendeguz.kodokharca.controller;
 
 import hu.bendeguz.kodokharca.model.GameNumber;
+import hu.bendeguz.kodokharca.service.CombinationFilterHandler;
 import hu.bendeguz.kodokharca.service.CombinationGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,12 +25,31 @@ public class HomeController {
 
     @GetMapping(value = {"/", "/home"})
     public String showHome(@RequestParam(required = false, defaultValue = "5") Integer elementsInArray,
-        @RequestParam(required = false) List<String> filter, Model model) {
+        @RequestParam(required = false, defaultValue = "") List<String> filter, Model model) {
 
         log.debug("filter = '{}'", filter);
         log.debug("elementsInArray = '{}' ", elementsInArray);
 
-        model.addAttribute("combinations", CombinationGenerator.generateAllCombinations(elementsInArray));
+        List<List<GameNumber>> combinations;
+
+        switch (elementsInArray) {
+            case 5: {
+                combinations = combinations5Numbers;
+                break;
+            }
+            case 4: {
+                combinations = combinations4Numbers;
+                break;
+            }
+            default: {
+                combinations = CombinationGenerator.generateAllCombinations(elementsInArray);
+            }
+        }
+
+        combinations = (filter.size() > 0) ? CombinationFilterHandler.handleFiltering(combinations, filter) : combinations;
+        log.debug("Returning {} combinations!", combinations.size());
+
+        model.addAttribute("combinations", combinations);
         model.addAttribute("elementsInArray", elementsInArray);
         model.addAttribute("headerIterable", new boolean[elementsInArray]);
 
