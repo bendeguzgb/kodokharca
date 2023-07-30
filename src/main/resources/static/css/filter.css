@@ -1,38 +1,38 @@
-.questions {
+.filters {
     display: flex;
 }
 
-.questions .first {
+.filters .first {
     width: 350px;
 }
 
-.questions .second {
+.filters .second {
     padding-left: 20px;
     width: 350px;
 }
 
-.questions form {
+.filters form {
     margin-bottom: 10px;
     padding: 10px 0px 10px 5px;
     border: 1px solid black;
 }
-.questions br {
+.filters br {
     display: block;
     padding-bottom: 300px;
 }
 
-.questions input[type=number], .questions input[type=text] {
+.filters input[type=number], .filters input[type=text] {
     width: 100px;
     margin: 10px 0px 0px 0px;
     padding: 5px 0px 5px 0px;
 }
 
-.questions input[type=submit] {
+.filters input[type=submit] {
     float: right;
     margin: 0px 10px 0px 0px;
     padding: 5px 5px 5px 5px;
 }
 
-#even, #white {
+.radioMarginTop {
     margin-top: 10px;
 }
