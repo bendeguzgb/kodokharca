@@ -1,7 +1,7 @@
 package hu.bendeguz.kodokharca.controller;
 
 import hu.bendeguz.kodokharca.model.GameNumber;
-import hu.bendeguz.kodokharca.service.CombinationFilterHandler;
+import hu.bendeguz.kodokharca.service.filter.CombinationFilterHandler;
 import hu.bendeguz.kodokharca.service.CombinationGenerator;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
