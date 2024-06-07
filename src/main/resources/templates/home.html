@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kódok harca</title>
+    
+    <!-- For live editing   -->
+    <link rel="icon" type="image/png" href="../static/image/favicon.png"/>
+    
+    
+    <!-- For when running the application   -->
+    <link rel="icon" type="image/png" href="image/favicon.png"/>
+    
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #startGameForm {
+            text-align: center;
+        }
+
+        input {
+            margin-top: 10px;
+        }
+
+        input[type=submit] {
+            width: 120px;
+            height: 50px;
+            border: 4px solid #2fb334;
+            border-radius: 50%;
+            background-color: white;
+            font-size: 20px;
+            text-align: center;
+            color: #2fb334;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<th:block th:insert="~{fragments/title}">title</th:block>
+
+<form id="startGameForm" action="jatek" method="get">
+    <label>Ellenfelek száma:</label>
+    
+    <input type="radio" id="opponent1" name="ellenfelekSzama" value="1" required checked>
+    <label for="opponent1">1</label>
+    
+    <input type="radio" id="opponent2" name="ellenfelekSzama" value="2" required>
+    <label for="opponent2">2</label>
+    
+    <input type="radio" id="opponent3" name="ellenfelekSzama" value="3" required>
+    <label for="opponent3">3</label>
+    <br>
+    
+    <label for="code">Kód:</label>
+    <input type="text" id="code" name="kod" maxlength="10" pattern="[0-9a-zA-Z]{0,10}" placeholder="Opcionális"
+           title="A kód opcionális, de maximum 10 karaktert tartalmazhat. Csak számokat és kis- és nagybetűket tartalmazhat!">
+    <br>
+    
+    <input type="submit" value="JÁTÉK">
+</form>
+</body>
+</html>
