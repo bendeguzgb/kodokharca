@@ -3,6 +3,7 @@ package hu.bendeguz.kodokharca.service;
 import hu.bendeguz.kodokharca.model.Color;
 import hu.bendeguz.kodokharca.model.GameNumber;
 import java.util.Collections;
+import java.util.Random;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -18,10 +19,17 @@ public class CombinationGenerator {
 
     private static List<List<GameNumber>> combinationsRange20Numbers4 = null;
     private static List<List<GameNumber>> combinationsRange20Numbers5 = null;
+    private static List<GameNumber> gameNumbersRange20 = null;
+    public static final int COMBINATION_RANGE20_NUMBERS4_SIZE;
+    public static final int COMBINATION_RANGE20_NUMBERS5_SIZE;
+    
 
     static {
         generateAllCombinations(4);
         generateAllCombinations(5);
+        COMBINATION_RANGE20_NUMBERS4_SIZE = combinationsRange20Numbers4.size();
+        COMBINATION_RANGE20_NUMBERS5_SIZE = combinationsRange20Numbers5.size();
+        getAllGameNumbers(20);
     }
 
 
@@ -87,6 +95,49 @@ public class CombinationGenerator {
         }
         return combinations;
     }
+    
+    public static List<List<GameNumber>> generateRandomCombinationsForPlayers(int playerCount) {
+        return generateRandomCombinationsForPlayers(playerCount, new Random());
+    }
+    
+    public static List<List<GameNumber>> generateRandomCombinationsForPlayers(int playerCount, Random random) {
+        return generateRandomCombinationsForPlayers(playerCount, 20, random);
+    }
+    
+    public static List<List<GameNumber>> generateRandomCombinationsForPlayers(int playerCount, int range, Random random) {
+        int combinationSize = playerCountToCombinationSize(playerCount);
+        List<GameNumber> allGameNumbers = getAllGameNumbers(range);
+        
+        List<List<GameNumber>> combinations = new ArrayList<>(playerCount);
+        
+        for (int i = 0; i < playerCount; i++) {
+            List<GameNumber> combination = new ArrayList<>(combinationSize);
+            
+            for (int j = 0; j < combinationSize; j++) {
+                int randomIndex = random.nextInt(allGameNumbers.size());
+                combination.add(allGameNumbers.remove(randomIndex));
+            }
+            Collections.sort(combination);
+            combinations.add(combination);
+        }
+        // This will add the rest of the numbers which are not the players' numbers.
+        // This is needed when 3 or 4 players are playing (the numbers n the middle).
+        combinations.add(allGameNumbers);
+        
+        return combinations;
+    }
+    
+    public static int playerCountToCombinationSize(int playerCount) {
+        switch (playerCount) {
+            case 2:
+            case 3:
+                return 5;
+            case 4:
+                return 4;
+            default:
+                throw new IllegalArgumentException(String.format("Invalid argument found! Player count cannot be '%d'!", playerCount));
+        }
+    }
 
     private static void validateParameters(int totalElementCountP, int elementsInArrayP) {
         if (totalElementCountP < 0 || elementsInArrayP < 0) {
@@ -106,6 +157,28 @@ public class CombinationGenerator {
         return Arrays.stream(numbers).boxed()
             .map(CombinationGenerator::mapIntegerToGameNumber)
             .collect(Collectors.toUnmodifiableList());
+    }
+    private static List<GameNumber> getAllGameNumbers() {
+        return getAllGameNumbers(20);
+    }
+    
+    private static List<GameNumber> getAllGameNumbers(int range) {
+        if (range == 20 && gameNumbersRange20 != null) {
+            return new ArrayList<>(gameNumbersRange20);
+        }
+        
+        List<GameNumber> gameNumbers = new ArrayList<>(range);
+        
+        for (int i = 0; i < range; i++) {
+            GameNumber gameNumber = mapIntegerToGameNumber(i);
+            gameNumbers.add(gameNumber);
+        }
+        
+        if (range == 20 && gameNumbersRange20 == null) {
+            gameNumbersRange20 = new ArrayList<>(gameNumbers);
+        }
+        
+        return new ArrayList<>(gameNumbers);
     }
 
     private static GameNumber mapIntegerToGameNumber(Integer value) {
