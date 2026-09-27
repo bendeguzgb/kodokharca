@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kódok harca</title>
+
+<!-- For live editing   -->
+    <link rel="icon" type="image/png" href="../static/image/favicon.png" />
+    
+    <link rel="stylesheet" href="../static/css/combination.css">
+    <link rel="stylesheet" href="../static/css/game.css">
+
+
+<!-- For when running the application   -->
+    <link rel="icon" type="image/png" href="image/favicon.png" />
+    
+    <link rel="stylesheet" href="css/combination.css">
+    <link rel="stylesheet" href="css/question.css">
+    <link rel="stylesheet" href="css/game.css">
+    
+    <script type="text/javascript" src="script/game.js"></script>
+    
+    <script th:inline="javascript">
+        let searchText = /*[[${searchText}]]*/ null;
+    </script>
+</head>
+
+<body>
+    <th:block th:insert="~{fragments/title}">title</th:block>
+    
+    <div id="container">
+        <div id="playerDataColumn">
+            <p id="nthPlayer">
+                <span>Te vagy a </span>
+                <span style="color: #2fb334;" th:text="${gameDetails.getHumanPlayerIndex()} + 1 + '. játékos'">játékos</span>
+            </p>
+            
+            <table id="playerNumbersTable">
+                <thead>
+                    <tr>
+                        <th th:each="letter : ${letters}" th:text="${letter}"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td th:each="number : ${gameDetails.getHumanPlayer().getGameNumbers()}"
+                            th:class="${number.getColor()}" th:text="${number.getValue()}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div id="playerQuestionsAnswers">
+                <div class="playerQuestion" th:each="questionAndAnswer, rowStat : ${gameDetails.getHumanPlayersQuestionsAndAnswers()}">
+                    <div class="playerQuestionText">
+                        <span th:text="${rowStat.index} + 1 + '.: ' + ${questionAndAnswer.getKey().text}"></span>
+                    </div>
+                    
+                    <div class="playerQuestionAnswers">
+                        <th:block th:each="answer: ${questionAndAnswer.value}">
+                            <span style="color: red; font-weight: bold" th:text="${answer}"></span>
+                            <br>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="questionAndNotes">
+            <div id="questionsColumn">
+                <th:block th:insert="~{'fragments/questions/guess'}"></th:block>
+                
+                <div class="questions">
+                    <th:block th:each="question : ${questionsRow1}">
+                        <th:block th:insert="~{'fragments/questions/' + ${question}}"></th:block>
+                    </th:block>
+                </div>
+                <div class="questions">
+                    <th:block th:each="question : ${questionsRow2}">
+                        <th:block th:insert="~{'fragments/questions/' + ${question}}"></th:block>
+                    </th:block>
+                </div>
+            </div>
+            
+            <div id="playerNotes">
+                <table id="notesTable">
+                    <tr>
+                        <td th:each="number : ${numbers}" th:class="(${number != 5}? 'BLACK' : 'GREEN') + ' number-cell'">
+                            <th:block th:text="${number}"></th:block>
+                            <div class="red-x">X</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td th:each="number : ${numbers}" th:class="(${number != 5}? 'WHITE' : 'GREEN') + ' number-cell'">
+                            <th:block th:text="${number}"></th:block>
+                            <div class="red-x">X</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="allQuestionsAnswers">
+            <div class="playerQuestion" th:each="questionAndAnswer, rowStat : ${gameDetails.getAllQuestionsAndAnswers()}">
+                <div class="playerQuestionText">
+                    <span th:text="${rowStat.index} + 1 + '.: ' + ${questionAndAnswer.getKey().getText()}"></span>
+                </div>
+                
+                <div class="playerQuestionAnswers">
+                    <th:block th:each="answer: ${questionAndAnswer.getValue()}">
+                        <span style="color: red; font-weight: bold" th:text="${answer}"></span>
+                        <br>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <h3 th:text="'Opponent Count: ' + ${ellenfelekSzama}"></h3>
+    <h3 th:text="'Code: ' + ${kod}"></h3>
+    <h3 th:text="'Asked questions: ' + ${gameDetails.getAskedQuestions()}"></h3>
+    <h3 th:text="'Human Player Index: ' + ${gameDetails.getHumanPlayerIndex()}"></h3>
+    <h3 th:text="'Available question: ' + ${gameDetails.getAvailableQuestions()}"></h3>
+
+    <th:block th:each="entry : ${gameDetails.getHumanPlayersQuestionsAndAnswers()}">
+        <h3 th:text="${entry.getKey().text} + ': ' + ${entry.getValue()}"> </h3>
+    </th:block>
+    
+    <div class="questions">
+        <th:block th:each="question : ${gameDetails.getAvailableQuestions()}">
+            <th:block th:insert="~{'fragments/questions/' + ${question}}"></th:block>
+        </th:block>
+    </div>
+</body>
+</html>

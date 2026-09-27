@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+    <form id="guess">
+        <p style="display:none">Tipp: </p>
+        
+        <table id="guessTable">
+            <thead>
+                <tr>
+                    <th th:each="letter : ${letters}" th:text="${letter}"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td th:each="letter : ${letters}">
+                        <select required>
+                            <option th:each="number : ${numbers}" th:text="${number}"></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td th:each="letter : ${letters}">
+                        <select class="guessColorSelector" required>
+                            <option th:each="color : ${colors}" th:class="${color}" th:value="${color}"></option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="submit" value="TIPPELEK">
+    </form>
+</body>
+</html>

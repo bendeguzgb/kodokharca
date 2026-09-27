@@ -1,0 +1,106 @@
+#nthPlayer {
+    font-weight: bold;
+}
+
+.playerQuestionText {
+    width: 300px
+}
+
+.playerQuestionAnswers {
+    width: 120px;
+}
+
+.playerQuestion {
+    width: 350px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    margin-bottom: 15px;
+}
+
+#questionsColumn {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 40px;
+}
+
+#playerNumbersTable, #playerNumbersTable td, #playerNumbersTable th  {
+    padding: 5px;
+    border-collapse: collapse;
+    border: 1px solid black;
+    text-align: center;
+    font-weight: bold;
+}
+
+#playerNumbersTable {
+    margin-bottom: 15px;
+}
+
+
+#playerNotes {
+    display: flex;
+    justify-content: center;
+}
+
+#notesTable, #notesTable tr, #notesTable td {
+    border: 1px solid black;
+    border-collapse: separate;
+    border-spacing: 0px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.number-cell {
+    position: relative;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.red-x {
+    width: 100%;
+    position: absolute;
+    padding-top: 2px;
+    top: 0;
+    right: 0;
+    text-align: center;
+    font-size: 30px;
+    color: red;
+    cursor: pointer;
+    display: none;
+}
+
+#guess {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 40px;
+}
+
+#guess input[type=submit] {
+    width: 120px;
+    height: 50px;
+    border: 3px solid #2fb334;
+    border-radius: 50%;
+    padding-top: 3px;
+    background-color: white;
+    font-size: 15px;
+    text-align: center;
+    color: #2fb334;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#guessTable {
+    margin-right: 100px;
+}
+
+#guessTable, #guessTable th, #guessTable tr, #guessTable td {
+    border: 1px solid black;
+    border-collapse: separate;
+    border-spacing: 0px;
+    font-weight: bold;
+}
+
+#guessTable select {
+    width: 32px;
+}
